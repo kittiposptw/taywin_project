@@ -2,8 +2,7 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import NavBar from '../components/NavBar'
 import Footer from '../components/Footer'
-
-const PRODUCT_IMG = 'https://lh3.googleusercontent.com/aida-public/AB6AXuAiRdDjTqGcvbrhj_Fwm33hvzjBw48lcsZHcvlu5MkEOG4wm7TFaSCrZlhjUkxEK7OkJ6eJEZacifUE0F7Ve1UvE93XGQUTW2eBt7xUQSiC9iqN_Tdhrw0RJ1N1WywmBIZeMcgXPl3z29QuevxWB9lsW-Sj53KlJym5-f8nSXLTO76y8SuU6nD7X6VMXdKRz-uDgIc8ehobN55K0Fb-u5CVKCC-kMs_4q1Y6wlEXsdeXIE_VjlQT7NZUXtNJscJL9ZCnXim3ebx8BbI'
+import { IMAGES } from '../config/images'
 
 const STEPS = ['Shipping', 'Payment', 'Review']
 
@@ -132,7 +131,7 @@ export default function CheckoutPage() {
                 {/* Cart Item */}
                 <div className="flex gap-4 pb-6 border-b border-[#4e4634]/20">
                   <div className="w-24 h-32 flex-shrink-0 bg-[#2a3643]">
-                    <img src={PRODUCT_IMG} alt="The Heritage Oxford" className="w-full h-full object-cover grayscale contrast-125" />
+                    <img src={IMAGES.checkoutThumb} alt="The Heritage Oxford" className="w-full h-full object-cover grayscale contrast-125" />
                   </div>
                   <div className="flex-grow flex flex-col justify-between py-1">
                     <div>

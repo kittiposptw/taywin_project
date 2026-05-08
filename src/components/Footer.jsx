@@ -8,17 +8,16 @@ export default function Footer() {
       </div>
       <div className="flex flex-wrap justify-center gap-12">
         {links.map((link) => (
-          <a
+          <span
             key={link}
-            href="#"
-            className="font-['Manrope'] text-xs uppercase tracking-widest text-[#d1c5ad] hover:text-[#f0c131] transition-colors duration-300"
+            className="font-['Manrope'] text-xs uppercase tracking-widest text-[#d1c5ad]"
           >
             {link}
-          </a>
+          </span>
         ))}
       </div>
       <p className="font-['Manrope'] text-xs uppercase tracking-widest text-[#e8c33f] mt-4 opacity-60">
-        © 2024 TAYWIN ORIGINAL. HANDCRAFTED FOR LONGEVITY.
+        © 2024 TAYWIN ORIGINAL STYLE HANDCRAFTED FOR LONGEVITY.
       </p>
     </footer>
   )
