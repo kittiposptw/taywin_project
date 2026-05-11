@@ -81,7 +81,7 @@ export function useProducts() {
 export function useProduct(sku) {
   const { products, loading, error } = useProducts()
   return {
-    product: products.find((p) => p.sku === sku) ?? products[0] ?? null,
+    product: products.find((p) => p.sku === sku) ?? null,
     loading,
     error,
   }
