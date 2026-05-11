@@ -35,4 +35,4 @@ This is a React + Vite e-commerce website built from a Google Stitch design.
 
 ## Who is Mew
 
-Mew is the Product Owner. She is **not a developer**. Explain things simply, avoid jargon, and always tell her which file to look at and what to change. When making edits, do them for her — don't give her code to copy-paste.
+Mew is the Product Owner. He is **not a developer**. Explain things simply, avoid jargon, and always tell him which file to look at and what to change. When making edits, do them for him — don't give him code to copy-paste.
