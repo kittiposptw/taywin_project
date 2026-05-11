@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
+import { useCart } from '../context/CartContext'
 
 const SIDEBAR_LINKS = [
   { label: 'Shop All', to: '/collections' },
@@ -8,6 +9,7 @@ const SIDEBAR_LINKS = [
 
 export default function NavBar() {
   const [open, setOpen] = useState(false)
+  const { totalItems, openCart } = useCart()
 
   return (
     <>
@@ -57,9 +59,14 @@ export default function NavBar() {
           <button className="hover:opacity-60 transition-opacity">
             <span className="material-symbols-outlined" style={{ fontSize: 22 }}>person</span>
           </button>
-          <Link to="/checkout" className="hover:opacity-60 transition-opacity">
+          <button onClick={openCart} className="relative hover:opacity-60 transition-opacity">
             <span className="material-symbols-outlined" style={{ fontSize: 22 }}>shopping_bag</span>
-          </Link>
+            {totalItems > 0 && (
+              <span className="absolute -top-1.5 -right-1.5 w-4 h-4 bg-[#1a1c1c] text-white font-['Hanken_Grotesk'] text-[9px] font-semibold flex items-center justify-center">
+                {totalItems}
+              </span>
+            )}
+          </button>
         </div>
       </nav>
     </>
