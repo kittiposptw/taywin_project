@@ -7,6 +7,7 @@ import { resolveImageUrl } from '../config/images'
 
 const CATEGORIES = ['Oxford', 'Loafers', 'Boots']
 const SIZES = ['40', '41', '42', '43', '44', '45']
+const CATEGORY_STEMS = { Oxford: 'Oxford', Loafers: 'Loafer', Boots: 'Boot' }
 
 function SkeletonCard() {
   return (
@@ -36,11 +37,9 @@ export default function CollectionsPage() {
     setCurrentPage(1)
   }
 
-  const CATEGORY_KEYWORDS = { Oxford: 'Oxford', Loafers: 'Loafer', Boots: 'Boot' }
-
   const filtered = products.filter((p) => {
     const categoryMatch = activeCategories.length === 0
-      || activeCategories.some((cat) => p.name.toLowerCase().includes(CATEGORY_KEYWORDS[cat].toLowerCase()))
+      || activeCategories.some((cat) => p.name.toLowerCase().includes((CATEGORY_STEMS[cat] ?? cat).toLowerCase()))
     const sizeMatch = activeSizes.length === 0
       || activeSizes.some((s) => p.sizes.includes(s))
     return categoryMatch && sizeMatch
@@ -148,6 +147,12 @@ export default function CollectionsPage() {
             {!loading && !error && products.length === 0 && (
               <div className="col-span-4 py-24 text-center">
                 <p className="font-['Hanken_Grotesk'] text-sm text-[#7e7576]">No products available.</p>
+              </div>
+            )}
+
+            {!loading && !error && products.length > 0 && filtered.length === 0 && (
+              <div className="col-span-4 py-24 text-center">
+                <p className="font-['Hanken_Grotesk'] text-sm text-[#7e7576]">No products match your filters.</p>
               </div>
             )}
 
