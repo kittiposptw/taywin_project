@@ -129,6 +129,7 @@ export default function ProductPage() {
               <div className="flex flex-col gap-3">
                 <Link
                   to={selectedSize ? '/checkout' : '#'}
+                  state={selectedSize ? { product, selectedSize } : undefined}
                   onClick={(e) => { if (!selectedSize) e.preventDefault() }}
                   className={`w-full py-5 font-['Hanken_Grotesk'] text-xs font-semibold uppercase tracking-[0.2em] transition-all text-center ${selectedSize ? 'bg-[#1a1c1c] text-white hover:opacity-80' : 'bg-[#e2e2e2] text-[#7e7576] cursor-not-allowed'}`}
                 >
