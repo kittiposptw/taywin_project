@@ -1,31 +1,34 @@
-import { useLocation, Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import NavBar from '../components/NavBar'
 import Footer from '../components/Footer'
+import { useCart } from '../context/CartContext'
 import { resolveImageUrl } from '../config/images'
 
 export default function CheckoutPage() {
-  const { state } = useLocation()
-  const product = state?.product
-  const selectedSize = state?.selectedSize
+  const { cartItems, totalPrice, clearCart } = useCart()
+  const navigate = useNavigate()
 
-  if (!product) {
+  function handleCompletePurchase() {
+    clearCart()
+    navigate('/')
+  }
+
+  if (cartItems.length === 0) {
     return (
       <div className="bg-[#f9f9f9] text-[#1a1c1c] min-h-screen font-['Hanken_Grotesk']">
         <NavBar />
         <div className="min-h-screen flex flex-col items-center justify-center gap-4">
           <span className="font-['Hanken_Grotesk'] text-xs uppercase tracking-[0.15em] text-[#7e7576]">Your bag is empty</span>
-          <Link
-            to="/collections"
+          <a
+            href="/collections"
             className="font-['Hanken_Grotesk'] text-xs font-semibold uppercase tracking-[0.15em] text-[#1a1c1c] border-b border-[#1a1c1c] pb-0.5 hover:opacity-60 transition-opacity"
           >
             Browse Collection
-          </Link>
+          </a>
         </div>
       </div>
     )
   }
-
-  const priceFormatted = `${product.price.toLocaleString()} THB`
 
   return (
     <div className="bg-[#f9f9f9] text-[#1a1c1c] min-h-screen font-['Hanken_Grotesk']">
@@ -110,7 +113,11 @@ export default function CheckoutPage() {
                 </div>
               </section>
 
-              <button type="button" className="w-full py-5 bg-[#1a1c1c] text-white font-['Hanken_Grotesk'] text-xs font-semibold uppercase tracking-[0.2em] hover:opacity-80 transition-opacity">
+              <button
+                type="button"
+                onClick={handleCompletePurchase}
+                className="w-full py-5 bg-[#1a1c1c] text-white font-['Hanken_Grotesk'] text-xs font-semibold uppercase tracking-[0.2em] hover:opacity-80 transition-opacity"
+              >
                 Complete Purchase
               </button>
             </div>
@@ -121,27 +128,30 @@ export default function CheckoutPage() {
                 <h2 className="font-['Hanken_Grotesk'] text-xs font-semibold uppercase tracking-[0.2em] text-[#1a1c1c] mb-1">Order Summary</h2>
                 <div className="h-px bg-[#e2e2e2] mb-6" />
 
-                {/* Cart Item */}
-                <div className="space-y-6 mb-6">
-                  <div className="flex gap-4">
-                    <div className="w-20 h-24 shrink-0 bg-[#f2f2f2] overflow-hidden">
-                      <img
-                        src={resolveImageUrl(product.imageUrl)}
-                        alt={product.name}
-                        className="w-full h-full object-contain p-2"
-                      />
-                    </div>
-                    <div className="flex-1 flex flex-col justify-between py-0.5">
-                      <div>
-                        <h4 className="font-['Hanken_Grotesk'] text-sm font-medium text-[#1a1c1c]">{product.name}</h4>
-                        <p className="font-['Hanken_Grotesk'] text-xs text-[#7e7576] mt-0.5">Size {selectedSize}</p>
-                        {product.series && (
-                          <p className="font-['Hanken_Grotesk'] text-xs text-[#7e7576] mt-0.5">{product.series}</p>
-                        )}
+                {/* Cart Items */}
+                <div className="space-y-4 mb-6">
+                  {cartItems.map((item) => (
+                    <div key={`${item.sku}-${item.size}`} className="flex gap-4">
+                      <div className="w-20 h-24 shrink-0 bg-[#f2f2f2] overflow-hidden">
+                        <img
+                          src={resolveImageUrl(item.imageUrl)}
+                          alt={item.name}
+                          className="w-full h-full object-contain p-2"
+                        />
                       </div>
-                      <p className="font-['Hanken_Grotesk'] text-sm font-semibold text-[#1a1c1c]">{priceFormatted}</p>
+                      <div className="flex-1 flex flex-col justify-between py-0.5">
+                        <div>
+                          <h4 className="font-['Hanken_Grotesk'] text-sm font-medium text-[#1a1c1c]">{item.name}</h4>
+                          <p className="font-['Hanken_Grotesk'] text-xs text-[#7e7576] mt-0.5">
+                            Size {item.size}{item.qty > 1 ? ` · Qty ${item.qty}` : ''}
+                          </p>
+                        </div>
+                        <p className="font-['Hanken_Grotesk'] text-sm font-semibold text-[#1a1c1c]">
+                          {(item.price * item.qty).toLocaleString()} THB
+                        </p>
+                      </div>
                     </div>
-                  </div>
+                  ))}
                 </div>
 
                 {/* Discount Code */}
@@ -157,7 +167,7 @@ export default function CheckoutPage() {
                 {/* Price Breakdown */}
                 <div className="space-y-3 mb-5">
                   {[
-                    { label: 'Subtotal', value: priceFormatted },
+                    { label: 'Subtotal', value: `${totalPrice.toLocaleString()} THB` },
                     { label: 'Shipping', value: 'Calculated at next step' },
                   ].map((row) => (
                     <div key={row.label} className="flex justify-between">
@@ -172,7 +182,7 @@ export default function CheckoutPage() {
                 {/* Total */}
                 <div className="flex justify-between items-center">
                   <span className="font-['Hanken_Grotesk'] text-sm font-semibold uppercase tracking-[0.1em]">Total</span>
-                  <span className="font-['Bodoni_Moda'] text-2xl text-[#1a1c1c]">{priceFormatted}</span>
+                  <span className="font-['Bodoni_Moda'] text-2xl text-[#1a1c1c]">{totalPrice.toLocaleString()} THB</span>
                 </div>
               </aside>
             </div>
