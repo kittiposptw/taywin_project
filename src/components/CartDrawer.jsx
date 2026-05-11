@@ -1,3 +1,4 @@
+import { useRef, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useCart } from '../context/CartContext'
 import { resolveImageUrl } from '../config/images'
@@ -8,6 +9,14 @@ export default function CartDrawer() {
     totalItems, totalPrice, isOpen, closeCart,
   } = useCart()
   const navigate = useNavigate()
+
+  const drawerRef = useRef(null)
+
+  useEffect(() => {
+    if (isOpen && drawerRef.current) {
+      drawerRef.current.focus()
+    }
+  }, [isOpen])
 
   function handleCheckout() {
     closeCart()
@@ -24,14 +33,19 @@ export default function CartDrawer() {
 
       {/* Drawer panel */}
       <aside
-        className={`fixed top-0 right-0 h-full w-[360px] max-w-[90vw] bg-white z-[70] flex flex-col shadow-2xl transition-transform duration-300 ease-in-out ${isOpen ? 'translate-x-0' : 'translate-x-full'}`}
+        ref={drawerRef}
+        tabIndex={-1}
+        role="dialog"
+        aria-modal="true"
+        aria-label="Shopping bag"
+        className={`fixed top-0 right-0 h-full w-[360px] max-w-[90vw] bg-white z-[70] flex flex-col shadow-2xl transition-transform duration-300 ease-in-out outline-none ${isOpen ? 'translate-x-0' : 'translate-x-full'}`}
       >
         {/* Header */}
         <div className="flex justify-between items-center px-6 py-5 border-b border-[#e2e2e2]">
           <span className="font-['Hanken_Grotesk'] text-xs font-semibold uppercase tracking-[0.2em] text-[#1a1c1c]">
             Your Bag{totalItems > 0 ? ` (${totalItems})` : ''}
           </span>
-          <button onClick={closeCart} className="text-[#7e7576] hover:text-[#1a1c1c] transition-colors">
+          <button onClick={closeCart} aria-label="Close bag" className="text-[#7e7576] hover:text-[#1a1c1c] transition-colors">
             <span className="material-symbols-outlined" style={{ fontSize: 20 }}>close</span>
           </button>
         </div>
@@ -69,6 +83,7 @@ export default function CartDrawer() {
                       </span>
                       <button
                         onClick={() => removeFromCart(item.sku, item.size)}
+                        aria-label={`Remove ${item.name}`}
                         className="text-[#bbb] hover:text-[#1a1c1c] transition-colors shrink-0"
                       >
                         <span className="material-symbols-outlined" style={{ fontSize: 14 }}>close</span>
@@ -82,6 +97,7 @@ export default function CartDrawer() {
                       <div className="flex items-center border border-[#e2e2e2]">
                         <button
                           onClick={() => updateQty(item.sku, item.size, item.qty - 1)}
+                          aria-label={`Decrease quantity of ${item.name}`}
                           className="w-7 h-7 flex items-center justify-center text-[#1a1c1c] hover:bg-[#f2f2f2] transition-colors text-base font-light"
                         >
                           −
@@ -91,6 +107,7 @@ export default function CartDrawer() {
                         </span>
                         <button
                           onClick={() => updateQty(item.sku, item.size, item.qty + 1)}
+                          aria-label={`Increase quantity of ${item.name}`}
                           className="w-7 h-7 flex items-center justify-center text-[#1a1c1c] hover:bg-[#f2f2f2] transition-colors text-base font-light"
                         >
                           +

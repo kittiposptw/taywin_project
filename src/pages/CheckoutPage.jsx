@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 import NavBar from '../components/NavBar'
 import Footer from '../components/Footer'
 import { useCart } from '../context/CartContext'
@@ -17,14 +17,14 @@ export default function CheckoutPage() {
     return (
       <div className="bg-[#f9f9f9] text-[#1a1c1c] min-h-screen font-['Hanken_Grotesk']">
         <NavBar />
-        <div className="min-h-screen flex flex-col items-center justify-center gap-4">
+        <div className="min-h-[calc(100vh-72px)] mt-[72px] flex flex-col items-center justify-center gap-4">
           <span className="font-['Hanken_Grotesk'] text-xs uppercase tracking-[0.15em] text-[#7e7576]">Your bag is empty</span>
-          <a
-            href="/collections"
+          <Link
+            to="/collections"
             className="font-['Hanken_Grotesk'] text-xs font-semibold uppercase tracking-[0.15em] text-[#1a1c1c] border-b border-[#1a1c1c] pb-0.5 hover:opacity-60 transition-opacity"
           >
             Browse Collection
-          </a>
+          </Link>
         </div>
       </div>
     )

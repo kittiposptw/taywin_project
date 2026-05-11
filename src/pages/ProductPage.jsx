@@ -21,6 +21,7 @@ export default function ProductPage() {
   const { addToCart, openCart } = useCart()
 
   function handleAddToCart() {
+    if (!product || !selectedSize) return
     addToCart(product, selectedSize)
     openCart()
   }
