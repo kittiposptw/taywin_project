@@ -108,7 +108,7 @@ export default function CheckoutPage() {
                         <h4 className="font-['Hanken_Grotesk'] text-sm font-medium text-[#1a1c1c]">The Heritage Oxford</h4>
                         <p className="font-['Hanken_Grotesk'] text-xs text-[#7e7576] mt-0.5">Size 42 / Black</p>
                       </div>
-                      <p className="font-['Hanken_Grotesk'] text-sm font-semibold text-[#1a1c1c]">$495.00</p>
+                      <p className="font-['Hanken_Grotesk'] text-sm font-semibold text-[#1a1c1c]">18,900 THB</p>
                     </div>
                   </div>
                 </div>
@@ -126,7 +126,7 @@ export default function CheckoutPage() {
                 {/* Price Breakdown */}
                 <div className="space-y-3 mb-5">
                   {[
-                    { label: 'Subtotal', value: '$495.00' },
+                    { label: 'Subtotal', value: '18,900 THB' },
                     { label: 'Shipping', value: 'Calculated at next step' },
                   ].map((row) => (
                     <div key={row.label} className="flex justify-between">
@@ -141,7 +141,7 @@ export default function CheckoutPage() {
                 {/* Total */}
                 <div className="flex justify-between items-center">
                   <span className="font-['Hanken_Grotesk'] text-sm font-semibold uppercase tracking-[0.1em]">Total</span>
-                  <span className="font-['Bodoni_Moda'] text-2xl text-[#1a1c1c]">THB 495.00</span>
+                  <span className="font-['Bodoni_Moda'] text-2xl text-[#1a1c1c]">18,900 THB</span>
                 </div>
               </aside>
             </div>
