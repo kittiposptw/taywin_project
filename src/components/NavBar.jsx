@@ -2,12 +2,8 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 
 const SIDEBAR_LINKS = [
-  { label: 'Shop', to: '/collections' },
-  { label: 'New Arrivals', to: '/' },
-  { label: 'Collections', to: '/collections' },
+  { label: 'Shop All', to: '/collections' },
   { label: 'Heritage', to: '/heritage' },
-  { label: 'Craftsmanship', to: '/heritage' },
-  { label: 'Journal', to: '/' },
 ]
 
 export default function NavBar() {
