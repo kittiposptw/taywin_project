@@ -9,7 +9,7 @@
 //  5. Paste it below (replace the placeholder)
 // ─────────────────────────────────────────────────────────────
 
-export const SHEET_CSV_URL = ''
+export const SHEET_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRqiGsj2laRki0pdcy-bVsOj6X6hCBTPSmhh0ZzG1Y3dWwMe0AXnzxURpQGHiNYZTeRAiPfUihL4wQo/pub?output=csv'
 
 // Expected column order in your sheet (row 1 = headers):
 // SKU | Name | Series | Price | Description | ImageURL | Sizes | Visible

@@ -59,9 +59,9 @@ export const IMAGES = {
 
 export function resolveImageUrl(url) {
   if (!url) return ''
-  const driveMatch = url.match(/drive\.google\.com\/file\/d\/([^/]+)/)
+  const driveMatch = url.match(/drive\.google\.com\/file\/d\/([^/?]+)/)
   if (driveMatch) {
-    return `https://drive.google.com/uc?export=view&id=${driveMatch[1]}`
+    return `https://drive.google.com/thumbnail?id=${driveMatch[1]}&sz=w600`
   }
   return url
 }

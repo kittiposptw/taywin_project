@@ -11,109 +11,122 @@ const FEATURES = [
 
 export default function HomePage() {
   return (
-    <div className="bg-[#081421] text-[#d7e3f5] min-h-screen font-['Manrope']">
+    <div className="bg-[#f9f9f9] text-[#1a1c1c] min-h-screen font-['Hanken_Grotesk']">
       <NavBar />
 
-      {/* Hero */}
-      <section className="relative h-screen flex items-center overflow-hidden">
-        <div className="absolute inset-0 z-0">
-          <div className="absolute inset-0 bg-gradient-to-r from-[#081421] via-[#081421]/60 to-transparent z-10" />
-          <img src={IMAGES.hero} alt="Flagship Footwear" className="w-full h-full object-cover" />
+      {/* Hero — split column: text left, editorial photo right */}
+      <section className="pt-[72px] min-h-screen grid grid-cols-1 lg:grid-cols-2">
+        {/* Left: text content */}
+        <div className="flex flex-col justify-center px-10 md:px-16 py-20 lg:py-0 bg-[#f9f9f9]">
+          <span className="font-['Hanken_Grotesk'] text-xs font-semibold uppercase tracking-[0.25em] text-[#7e7576] mb-6 block">
+            Spring / Summer 2025
+          </span>
+          <h1 className="font-['Bodoni_Moda'] italic text-[64px] md:text-[80px] leading-[0.95] text-[#1a1c1c] mb-8">
+            The<br />Original<br />Choice.
+          </h1>
+          <p className="font-['Hanken_Grotesk'] text-base text-[#4c4546] mb-10 max-w-sm leading-relaxed">
+            Discover footwear crafted for longevity. Traditional Thai craftsmanship with modern silhouettes — icons that endure.
+          </p>
+          <div className="flex gap-4 flex-wrap">
+            <Link to="/collections" className="bg-[#1a1c1c] text-white font-['Hanken_Grotesk'] text-xs font-semibold uppercase tracking-[0.2em] px-10 py-4 hover:opacity-80 transition-opacity">
+              Shop Collection
+            </Link>
+            <Link to="/heritage" className="border border-[#1a1c1c] text-[#1a1c1c] font-['Hanken_Grotesk'] text-xs font-semibold uppercase tracking-[0.2em] px-10 py-4 hover:bg-[#1a1c1c]/5 transition-colors">
+              View Heritage
+            </Link>
+          </div>
         </div>
-        <div className="relative z-20 max-w-[1280px] mx-auto px-6 w-full">
-          <div className="max-w-2xl">
-            <span className="font-['Manrope'] text-xs text-[#f0c131] uppercase tracking-widest mb-4 block">Legacy in every step</span>
-            <h1 className="font-['EB_Garamond'] text-[64px] leading-[1.1] tracking-[-0.02em] text-[#d7e3f5] mb-6">
-              The Original<br />Choice
-            </h1>
-            <p className="font-['Manrope'] text-lg text-[#d1c5ad] mb-12 max-w-lg leading-relaxed">
-              Discover footwear crafted for longevity. We blend traditional Thai craftsmanship with modern silhouettes to create icons that endure.
+
+        {/* Right: editorial photo */}
+        <div className="relative overflow-hidden min-h-[60vh] lg:min-h-0">
+          <img src={IMAGES.derby} alt="New Collection" className="w-full h-full object-cover" />
+        </div>
+      </section>
+
+      {/* Two editorial panels */}
+      <section className="grid grid-cols-1 md:grid-cols-2 h-auto md:h-[640px]">
+        {/* Left panel — dark, smaller */}
+        <div className="relative overflow-hidden bg-[#1a1c1c] p-10 flex flex-col justify-end min-h-[400px] md:min-h-0">
+          <img src={IMAGES.chelsea} alt="The Archive" className="absolute inset-0 w-full h-full object-cover opacity-40 grayscale" />
+          <div className="relative z-10">
+            <span className="font-['Hanken_Grotesk'] text-xs font-semibold uppercase tracking-[0.25em] text-white/50 mb-3 block">
+              Seasonal Edit
+            </span>
+            <h2 className="font-['Bodoni_Moda'] italic text-4xl text-white mb-3">The Archive</h2>
+            <p className="font-['Hanken_Grotesk'] text-sm text-white/60 max-w-xs leading-relaxed mb-6">
+              Heritage silhouettes, revisited for the modern wardrobe. Enduring craft in timeless forms.
             </p>
-            <div className="flex gap-4 flex-wrap">
-              <Link
-                to="/product"
-                className="bg-[#f0c131] text-[#241a00] font-['Manrope'] text-xs font-bold px-12 py-4 uppercase tracking-widest hover:brightness-110 transition-all"
-              >
-                Shop Collection
-              </Link>
-              <button className="border border-[#f0c131] text-[#f0c131] font-['Manrope'] text-xs px-12 py-4 uppercase tracking-widest hover:bg-[#f0c131]/10 transition-all">
-                View Heritage
-              </button>
-            </div>
+            <Link to="/collections" className="font-['Hanken_Grotesk'] text-xs font-semibold uppercase tracking-[0.2em] text-white border-b border-white/40 pb-0.5 hover:border-white transition-colors">
+              Explore
+            </Link>
+          </div>
+        </div>
+
+        {/* Right panel — lifestyle photo */}
+        <div className="relative overflow-hidden bg-[#f2f2f2] p-10 flex flex-col justify-end min-h-[400px] md:min-h-0">
+          <img src={IMAGES.loafer} alt="Atelier Craft" className="absolute inset-0 w-full h-full object-cover" />
+          <div className="relative z-10">
+            <span className="font-['Hanken_Grotesk'] text-xs font-semibold uppercase tracking-[0.25em] text-white/70 mb-3 block">
+              New Arrivals
+            </span>
+            <h2 className="font-['Bodoni_Moda'] italic text-4xl text-white">Atelier Craft</h2>
           </div>
         </div>
       </section>
 
-      {/* New Arrivals */}
-      <section className="py-20 max-w-[1280px] mx-auto px-6">
-        <div className="flex justify-between items-end mb-12">
-          <div>
-            <span className="font-['Manrope'] text-xs text-[#e8c33f] uppercase tracking-widest">Current Season</span>
-            <h2 className="font-['EB_Garamond'] text-5xl text-[#d7e3f5] mt-2">New Arrivals</h2>
-          </div>
-          <Link to="/product" className="font-['Manrope'] text-xs text-[#f0c131] uppercase border-b border-[#f0c131] pb-1">
-            Shop All
+      {/* Editorial text section — "The Art of Restraint" */}
+      <section className="max-w-[1440px] mx-auto px-10 md:px-16 py-28 grid grid-cols-1 md:grid-cols-2 gap-20 items-center">
+        <div>
+          <span className="font-['Hanken_Grotesk'] text-xs font-semibold uppercase tracking-[0.25em] text-[#7e7576] mb-6 block">
+            The Philosophy
+          </span>
+          <h2 className="font-['Bodoni_Moda'] italic text-[52px] leading-[1.05] text-[#1a1c1c] mb-8">
+            The Art of<br />Restraint.
+          </h2>
+          <p className="font-['Hanken_Grotesk'] text-base text-[#4c4546] leading-relaxed mb-8 max-w-md">
+            True luxury is never about excess. It is found in the precision of a single stitch, the weight of a perfectly balanced last, and the confidence of a shoe that requires no introduction.
+          </p>
+          <Link to="/heritage" className="font-['Hanken_Grotesk'] text-xs font-semibold uppercase tracking-[0.2em] text-[#1a1c1c] border-b border-[#1a1c1c] pb-0.5 hover:opacity-60 transition-opacity">
+            Our Story
           </Link>
         </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-4">
-          <Link to="/product" className="md:col-span-8 group overflow-hidden bg-[#15202d] relative h-[600px] block">
-            <img src={IMAGES.derby} alt="The Signature Derby" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
-            <div className="absolute bottom-0 left-0 p-6 w-full bg-gradient-to-t from-[#081421] to-transparent">
-              <span className="font-['Manrope'] text-xs text-[#f0c131] uppercase tracking-widest mb-2 block">Limited Edition</span>
-              <h3 className="font-['EB_Garamond'] text-3xl text-[#d7e3f5]">The Signature Derby</h3>
-              <p className="font-['Manrope'] text-base text-[#d1c5ad]">Hand-burnished calfskin leather.</p>
-            </div>
-          </Link>
-
-          <div className="md:col-span-4 flex flex-col gap-4">
-            <div className="flex-1 bg-[#1f2b38] group cursor-pointer overflow-hidden relative min-h-[290px]">
-              <img src={IMAGES.loafer} alt="Suede Loafers" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
-              <div className="absolute inset-0 bg-[#081421]/20 group-hover:bg-[#081421]/0 transition-colors" />
-              <div className="absolute bottom-4 left-4">
-                <h4 className="font-['Manrope'] text-xs text-[#d7e3f5] uppercase tracking-widest">Suede Loafers</h4>
-                <p className="text-[#f0c131] font-['Manrope'] text-base mt-1">$280</p>
-              </div>
-            </div>
-            <div className="flex-1 bg-[#1f2b38] group cursor-pointer overflow-hidden relative min-h-[290px]">
-              <img src={IMAGES.chelsea} alt="Chelsea Boot" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
-              <div className="absolute inset-0 bg-[#081421]/20 group-hover:bg-[#081421]/0 transition-colors" />
-              <div className="absolute bottom-4 left-4">
-                <h4 className="font-['Manrope'] text-xs text-[#d7e3f5] uppercase tracking-widest">Chelsea Boot</h4>
-                <p className="text-[#f0c131] font-['Manrope'] text-base mt-1">$395</p>
-              </div>
-            </div>
-          </div>
+        <div className="aspect-[4/5] overflow-hidden bg-[#f2f2f2]">
+          <img src={IMAGES.oxfordMain} alt="Craftsmanship detail" className="w-full h-full object-cover grayscale" />
         </div>
       </section>
 
-      {/* Technical Excellence */}
-      <section className="bg-[#040f1b] py-20">
-        <div className="max-w-[1280px] mx-auto px-6">
-          <div className="text-center mb-16">
-            <span className="font-['Manrope'] text-xs text-[#f0c131] uppercase tracking-widest">Our Promise</span>
-            <h2 className="font-['EB_Garamond'] text-5xl text-[#d7e3f5] mt-2">Built to Last</h2>
+      {/* Crafted for Longevity — features */}
+      <section className="bg-[#f3f3f3] border-t border-[#e2e2e2] py-24">
+        <div className="max-w-[1440px] mx-auto px-10 md:px-16">
+          <div className="border-b border-[#e2e2e2] pb-12 mb-16 flex justify-between items-end">
+            <div>
+              <span className="font-['Hanken_Grotesk'] text-xs font-semibold uppercase tracking-[0.25em] text-[#7e7576] mb-3 block">Our Promise</span>
+              <h2 className="font-['Bodoni_Moda'] text-[52px] text-[#1a1c1c] leading-none">Crafted for<br />Longevity.</h2>
+            </div>
+            <Link to="/product" className="hidden md:block font-['Hanken_Grotesk'] text-xs font-semibold uppercase tracking-[0.2em] text-[#1a1c1c] border-b border-[#1a1c1c] pb-0.5 hover:opacity-60 transition-opacity">
+              Shop Now
+            </Link>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
             {FEATURES.map((f) => (
-              <div key={f.title} className="flex flex-col gap-4">
-                <span className="material-symbols-outlined text-[#f0c131]" style={{ fontSize: 40 }}>{f.icon}</span>
-                <h3 className="font-['EB_Garamond'] text-3xl text-[#d7e3f5]">{f.title}</h3>
-                <p className="text-[#d1c5ad] font-['Manrope'] text-base leading-relaxed">{f.desc}</p>
+              <div key={f.title} className="flex flex-col gap-5">
+                <span className="material-symbols-outlined text-[#1a1c1c]" style={{ fontSize: 28 }}>{f.icon}</span>
+                <div className="w-8 h-px bg-[#e2e2e2]" />
+                <h3 className="font-['Bodoni_Moda'] text-2xl text-[#1a1c1c]">{f.title}</h3>
+                <p className="font-['Hanken_Grotesk'] text-sm text-[#4c4546] leading-relaxed">{f.desc}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* CTA Banner */}
-      <section className="py-20 max-w-[1280px] mx-auto px-6 text-center">
-        <span className="font-['Manrope'] text-xs text-[#f0c131] uppercase tracking-widest">Begin Your Journey</span>
-        <h2 className="font-['EB_Garamond'] text-5xl text-[#d7e3f5] mt-2 mb-6">Discover the Heritage Oxford</h2>
-        <Link
-          to="/product"
-          className="inline-block bg-[#f0c131] text-[#241a00] font-['Manrope'] text-xs font-bold px-16 py-4 uppercase tracking-widest hover:brightness-110 transition-all"
-        >
+      {/* CTA banner */}
+      <section className="max-w-[1440px] mx-auto px-10 md:px-16 py-24 flex flex-col md:flex-row justify-between items-center gap-8 border-t border-[#e2e2e2]">
+        <div>
+          <span className="font-['Hanken_Grotesk'] text-xs font-semibold uppercase tracking-[0.25em] text-[#7e7576] mb-2 block">Begin Your Journey</span>
+          <h2 className="font-['Bodoni_Moda'] italic text-[42px] text-[#1a1c1c]">Discover the Heritage Oxford</h2>
+        </div>
+        <Link to="/product" className="shrink-0 bg-[#1a1c1c] text-white font-['Hanken_Grotesk'] text-xs font-semibold uppercase tracking-[0.2em] px-12 py-4 hover:opacity-80 transition-opacity">
           Shop Now
         </Link>
       </section>

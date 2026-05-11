@@ -44,7 +44,7 @@ function parseCSV(text) {
         sku: row['SKU'] || '',
         name: row['Name'] || '',
         series: row['Series'] || '',
-        price: parseFloat(row['Price']) || 0,
+        price: parseFloat((row['Price'] || '').replace(/[^0-9.]/g, '')) || 0,
         description: row['Description'] || '',
         imageUrl: row['ImageURL'] || '',
         sizes: (row['Sizes'] || '').split(',').map((s) => s.trim()).filter(Boolean),

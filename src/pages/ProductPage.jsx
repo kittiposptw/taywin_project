@@ -78,7 +78,7 @@ export default function ProductPage() {
           {/* Gallery */}
           <div className="lg:col-span-7 grid grid-cols-2 gap-3">
             <div className="col-span-2 aspect-[4/5] bg-[#f2f2f2] overflow-hidden">
-              <img src={resolveImageUrl(product.imageUrl) || IMAGES.oxfordMain} alt={product.name} className="w-full h-full object-cover" />
+              <img src={resolveImageUrl(product.imageUrl) || IMAGES.oxfordMain} alt={product.name} className="w-full h-full object-contain p-6" />
             </div>
             <div className="aspect-square bg-[#f2f2f2] overflow-hidden">
               <img src={IMAGES.oxfordHeel} alt="Heel detail" className="w-full h-full object-cover" />
@@ -96,7 +96,7 @@ export default function ProductPage() {
                   <span className="font-['Hanken_Grotesk'] text-xs font-semibold uppercase tracking-[0.2em] text-[#7e7576] mb-2 block">{product.series}</span>
                 )}
                 <h1 className="font-['Bodoni_Moda'] text-5xl text-[#1a1c1c] mb-2">{product.name}</h1>
-                <p className="font-['Hanken_Grotesk'] text-xl text-[#1a1c1c] font-medium">${product.price.toFixed(2)} USD</p>
+                <p className="font-['Hanken_Grotesk'] text-xl text-[#1a1c1c] font-medium">{product.price.toLocaleString()} THB</p>
               </div>
 
               <div className="h-px bg-[#e2e2e2] w-full" />

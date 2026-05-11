@@ -132,7 +132,7 @@ export default function HeritagePage() {
                   <img src={resolveImageUrl(item.imageUrl)} alt={item.name} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
                 </div>
                 <h3 className="font-['Hanken_Grotesk'] text-sm font-medium text-[#1a1c1c] group-hover:opacity-60 transition-opacity">{item.name}</h3>
-                <p className="font-['Hanken_Grotesk'] text-xs text-[#7e7576] mt-0.5">{item.series} · ${item.price}</p>
+                <p className="font-['Hanken_Grotesk'] text-xs text-[#7e7576] mt-0.5">{item.series} · {item.price.toLocaleString()} THB</p>
               </Link>
             ))}
           </div>

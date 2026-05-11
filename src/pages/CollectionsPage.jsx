@@ -19,12 +19,15 @@ function SkeletonCard() {
   )
 }
 
+const PAGE_SIZE = 12
+
 export default function CollectionsPage() {
   const { products, loading, error } = useProducts()
   const [activeCategories, setActiveCategories] = useState([])
   const [activeMaterials, setActiveMaterials] = useState([])
   const [activeSizes, setActiveSizes] = useState([])
   const [filtersOpen, setFiltersOpen] = useState(false)
+  const [currentPage, setCurrentPage] = useState(1)
 
   function toggleCategory(cat) {
     setActiveCategories((prev) => prev.includes(cat) ? prev.filter((c) => c !== cat) : [...prev, cat])
@@ -37,6 +40,8 @@ export default function CollectionsPage() {
   }
 
   const activeFilterCount = activeCategories.length + activeMaterials.length + activeSizes.length
+  const totalPages = Math.max(1, Math.ceil(products.length / PAGE_SIZE))
+  const paginated = products.slice((currentPage - 1) * PAGE_SIZE, currentPage * PAGE_SIZE)
 
   return (
     <div className="bg-[#f9f9f9] text-[#1a1c1c] min-h-screen font-['Hanken_Grotesk']">
@@ -157,13 +162,13 @@ export default function CollectionsPage() {
               </div>
             )}
 
-            {!loading && !error && products.map((product) => (
+            {!loading && !error && paginated.map((product) => (
               <Link to={`/product/${product.sku}`} key={product.sku} className="group cursor-pointer">
-                <div className="relative overflow-hidden bg-[#f2f2f2] mb-4" style={{ aspectRatio: '4/5' }}>
+                <div className="relative overflow-hidden mb-4" style={{ aspectRatio: '4/5' }}>
                   <img
                     src={resolveImageUrl(product.imageUrl)}
                     alt={product.name}
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    className="w-full h-full object-contain p-4 transition-transform duration-700 group-hover:scale-105"
                   />
                   <div className="absolute bottom-4 left-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                     <span className="bg-[#1a1c1c] text-white font-['Hanken_Grotesk'] text-xs font-semibold uppercase tracking-[0.1em] px-4 py-2">
@@ -173,29 +178,40 @@ export default function CollectionsPage() {
                 </div>
                 <div className="flex flex-col gap-1">
                   <h3 className="font-['Hanken_Grotesk'] text-sm font-medium text-[#1a1c1c]">{product.name}</h3>
-                  <span className="font-['Hanken_Grotesk'] text-sm text-[#7e7576]">${product.price}</span>
+                  <span className="font-['Hanken_Grotesk'] text-sm text-[#7e7576]">{product.price.toLocaleString()} THB</span>
                 </div>
               </Link>
             ))}
           </section>
 
           {/* Pagination */}
-          <nav className="flex justify-center items-center gap-2 mb-24">
-            <button className="w-10 h-10 flex items-center justify-center border border-[#e2e2e2] hover:border-[#1a1c1c] transition-colors">
-              <span className="material-symbols-outlined" style={{ fontSize: 18 }}>chevron_left</span>
-            </button>
-            {['1', '2', '3', '...', '14'].map((num, i) => (
+          {totalPages > 1 && (
+            <nav className="flex justify-center items-center gap-2 mb-24">
               <button
-                key={i}
-                className={`w-10 h-10 flex items-center justify-center border font-['Hanken_Grotesk'] text-xs font-semibold transition-colors ${i === 0 ? 'border-[#1a1c1c] bg-[#1a1c1c] text-white' : num === '...' ? 'border-transparent text-[#7e7576] cursor-default' : 'border-[#e2e2e2] text-[#1a1c1c] hover:border-[#1a1c1c]'}`}
+                onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
+                disabled={currentPage === 1}
+                className="w-10 h-10 flex items-center justify-center border border-[#e2e2e2] hover:border-[#1a1c1c] transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
               >
-                {num}
+                <span className="material-symbols-outlined" style={{ fontSize: 18 }}>chevron_left</span>
               </button>
-            ))}
-            <button className="w-10 h-10 flex items-center justify-center border border-[#e2e2e2] hover:border-[#1a1c1c] transition-colors">
-              <span className="material-symbols-outlined" style={{ fontSize: 18 }}>chevron_right</span>
-            </button>
-          </nav>
+              {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+                <button
+                  key={page}
+                  onClick={() => setCurrentPage(page)}
+                  className={`w-10 h-10 flex items-center justify-center border font-['Hanken_Grotesk'] text-xs font-semibold transition-colors ${page === currentPage ? 'border-[#1a1c1c] bg-[#1a1c1c] text-white' : 'border-[#e2e2e2] text-[#1a1c1c] hover:border-[#1a1c1c]'}`}
+                >
+                  {page}
+                </button>
+              ))}
+              <button
+                onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
+                disabled={currentPage === totalPages}
+                className="w-10 h-10 flex items-center justify-center border border-[#e2e2e2] hover:border-[#1a1c1c] transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
+              >
+                <span className="material-symbols-outlined" style={{ fontSize: 18 }}>chevron_right</span>
+              </button>
+            </nav>
+          )}
 
         </div>
       </main>
