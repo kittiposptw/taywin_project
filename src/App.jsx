@@ -1,5 +1,7 @@
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom'
 import { useEffect } from 'react'
+import { CartProvider } from './context/CartContext'
+import CartDrawer from './components/CartDrawer'
 import HomePage from './pages/HomePage'
 import ProductPage from './pages/ProductPage'
 import CheckoutPage from './pages/CheckoutPage'
@@ -15,14 +17,17 @@ function ScrollToTop() {
 function App() {
   return (
     <BrowserRouter>
-      <ScrollToTop />
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/collections" element={<CollectionsPage />} />
-        <Route path="/heritage" element={<HeritagePage />} />
-        <Route path="/product/:sku" element={<ProductPage />} />
-        <Route path="/checkout" element={<CheckoutPage />} />
-      </Routes>
+      <CartProvider>
+        <ScrollToTop />
+        <CartDrawer />
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/collections" element={<CollectionsPage />} />
+          <Route path="/heritage" element={<HeritagePage />} />
+          <Route path="/product/:sku" element={<ProductPage />} />
+          <Route path="/checkout" element={<CheckoutPage />} />
+        </Routes>
+      </CartProvider>
     </BrowserRouter>
   )
 }
