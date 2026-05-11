@@ -4,6 +4,7 @@ import NavBar from '../components/NavBar'
 import Footer from '../components/Footer'
 import { useProduct } from '../hooks/useProducts'
 import { IMAGES, resolveImageUrl } from '../config/images'
+import { useCart } from '../context/CartContext'
 
 const ACCESSORIES = [
   { name: 'The Heritage Belt', price: '$115.00', img: IMAGES.accessories.belt },
@@ -17,6 +18,12 @@ export default function ProductPage() {
   const { product, loading } = useProduct(sku)
   const [selectedSize, setSelectedSize] = useState(null)
   const [openSection, setOpenSection] = useState(null)
+  const { addToCart, openCart } = useCart()
+
+  function handleAddToCart() {
+    addToCart(product, selectedSize)
+    openCart()
+  }
 
   const accordionSections = [
     { id: 'specs', label: 'Craftsmanship Specs' },
@@ -127,14 +134,13 @@ export default function ProductPage() {
 
               {/* CTA */}
               <div className="flex flex-col gap-3">
-                <Link
-                  to={selectedSize ? '/checkout' : '#'}
-                  state={selectedSize ? { product, selectedSize } : undefined}
-                  onClick={(e) => { if (!selectedSize) e.preventDefault() }}
+                <button
+                  onClick={handleAddToCart}
+                  disabled={!selectedSize}
                   className={`w-full py-5 font-['Hanken_Grotesk'] text-xs font-semibold uppercase tracking-[0.2em] transition-all text-center ${selectedSize ? 'bg-[#1a1c1c] text-white hover:opacity-80' : 'bg-[#e2e2e2] text-[#7e7576] cursor-not-allowed'}`}
                 >
                   {selectedSize ? 'Add to Bag' : 'Select a Size'}
-                </Link>
+                </button>
                 <button className="w-full py-5 border border-[#1a1c1c] text-[#1a1c1c] font-['Hanken_Grotesk'] text-xs font-semibold uppercase tracking-[0.2em] hover:bg-[#1a1c1c]/5 transition-colors">
                   In-Store Fitting
                 </button>
