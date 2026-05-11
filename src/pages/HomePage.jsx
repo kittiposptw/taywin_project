@@ -103,7 +103,7 @@ export default function HomePage() {
               <span className="font-['Hanken_Grotesk'] text-xs font-semibold uppercase tracking-[0.25em] text-[#7e7576] mb-3 block">Our Promise</span>
               <h2 className="font-['Bodoni_Moda'] text-[52px] text-[#1a1c1c] leading-none">Crafted for<br />Longevity.</h2>
             </div>
-            <Link to="/product" className="hidden md:block font-['Hanken_Grotesk'] text-xs font-semibold uppercase tracking-[0.2em] text-[#1a1c1c] border-b border-[#1a1c1c] pb-0.5 hover:opacity-60 transition-opacity">
+            <Link to="/collections" className="hidden md:block font-['Hanken_Grotesk'] text-xs font-semibold uppercase tracking-[0.2em] text-[#1a1c1c] border-b border-[#1a1c1c] pb-0.5 hover:opacity-60 transition-opacity">
               Shop Now
             </Link>
           </div>
@@ -126,7 +126,7 @@ export default function HomePage() {
           <span className="font-['Hanken_Grotesk'] text-xs font-semibold uppercase tracking-[0.25em] text-[#7e7576] mb-2 block">Begin Your Journey</span>
           <h2 className="font-['Bodoni_Moda'] italic text-[42px] text-[#1a1c1c]">Discover the Heritage Oxford</h2>
         </div>
-        <Link to="/product" className="shrink-0 bg-[#1a1c1c] text-white font-['Hanken_Grotesk'] text-xs font-semibold uppercase tracking-[0.2em] px-12 py-4 hover:opacity-80 transition-opacity">
+        <Link to="/collections" className="shrink-0 bg-[#1a1c1c] text-white font-['Hanken_Grotesk'] text-xs font-semibold uppercase tracking-[0.2em] px-12 py-4 hover:opacity-80 transition-opacity">
           Shop Now
         </Link>
       </section>
