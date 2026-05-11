@@ -1,6 +1,9 @@
 import { useState, useEffect } from 'react'
 import { SHEET_CSV_URL } from '../config/sheetConfig'
 
+// Module-level cache — survives navigation, cleared on full page reload
+let _cachedProducts = null
+
 // Fallback data shown while the sheet loads or if URL isn't set yet
 const FALLBACK_PRODUCTS = [
   {
@@ -55,12 +58,12 @@ function parseCSV(text) {
 }
 
 export function useProducts() {
-  const [products, setProducts] = useState(FALLBACK_PRODUCTS)
-  const [loading, setLoading] = useState(!!SHEET_CSV_URL)
+  const [products, setProducts] = useState(_cachedProducts || FALLBACK_PRODUCTS)
+  const [loading, setLoading] = useState(!_cachedProducts && !!SHEET_CSV_URL)
   const [error, setError] = useState(null)
 
   useEffect(() => {
-    if (!SHEET_CSV_URL) return
+    if (!SHEET_CSV_URL || _cachedProducts) return
 
     fetch(SHEET_CSV_URL)
       .then((res) => {
@@ -69,7 +72,10 @@ export function useProducts() {
       })
       .then((text) => {
         const parsed = parseCSV(text)
-        if (parsed.length > 0) setProducts(parsed)
+        if (parsed.length > 0) {
+          _cachedProducts = parsed
+          setProducts(parsed)
+        }
       })
       .catch((err) => setError(err.message))
       .finally(() => setLoading(false))
