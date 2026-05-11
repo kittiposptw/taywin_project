@@ -3,6 +3,7 @@ import NavBar from '../components/NavBar'
 import Footer from '../components/Footer'
 import { IMAGES, resolveImageUrl } from '../config/images'
 import { useProducts } from '../hooks/useProducts'
+import ProductCarousel from '../components/ProductCarousel'
 
 const {
   atelier1: IMG_ATELIER_1,
@@ -17,7 +18,6 @@ const {
 
 export default function HeritagePage() {
   const { products } = useProducts()
-  const curated = products.slice(0, 3)
 
   return (
     <div className="bg-[#f9f9f9] text-[#1a1c1c] min-h-screen font-['Hanken_Grotesk']">
@@ -125,17 +125,7 @@ export default function HeritagePage() {
               View All
             </Link>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {curated.map((item) => (
-              <Link to={`/product/${item.sku}`} key={item.sku} className="group">
-                <div className="aspect-[4/5] bg-[#f2f2f2] overflow-hidden mb-4">
-                  <img src={resolveImageUrl(item.imageUrl)} alt={item.name} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
-                </div>
-                <h3 className="font-['Hanken_Grotesk'] text-sm font-medium text-[#1a1c1c] group-hover:opacity-60 transition-opacity">{item.name}</h3>
-                <p className="font-['Hanken_Grotesk'] text-xs text-[#7e7576] mt-0.5">{item.series} · {item.price.toLocaleString()} THB</p>
-              </Link>
-            ))}
-          </div>
+          <ProductCarousel products={products} />
         </section>
 
         {/* The TAYWIN Manifesto — editorial text block */}
