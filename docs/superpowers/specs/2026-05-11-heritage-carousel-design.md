@@ -77,6 +77,28 @@ The section header (`<div className="flex justify-between ...">` with "From the 
 
 ---
 
+## Tailwind Animation Setup
+
+The `@keyframes scroll` animation and the `animate-marquee` utility class do not exist yet. They must be added to `tailwind.config.js` under `theme.extend`:
+
+```js
+keyframes: {
+  marquee: {
+    '0%':   { transform: 'translateX(0)' },
+    '100%': { transform: 'translateX(-50%)' }
+  },
+},
+animation: {
+  marquee: 'marquee var(--marquee-duration, 30s) linear infinite',
+},
+```
+
+The `--marquee-duration` CSS custom property is set inline on the track element (e.g. `style={{ '--marquee-duration': `${products.length * 6}s` }}`), so the speed scales with product count without hardcoding a duration in the config.
+
+The `paused` state sets `[animation-play-state:paused]` on the track via a Tailwind arbitrary class or an inline style.
+
+---
+
 ## What Is NOT in Scope
 
 - Drag / swipe support
