@@ -6,7 +6,6 @@ import { useProducts } from '../hooks/useProducts'
 import { resolveImageUrl } from '../config/images'
 
 const CATEGORIES = ['Oxford', 'Loafers', 'Boots']
-const MATERIALS = ['Full-grain Leather', 'Suede']
 const SIZES = ['40', '41', '42', '43', '44', '45']
 
 function SkeletonCard() {
@@ -24,24 +23,32 @@ const PAGE_SIZE = 12
 export default function CollectionsPage() {
   const { products, loading, error } = useProducts()
   const [activeCategories, setActiveCategories] = useState([])
-  const [activeMaterials, setActiveMaterials] = useState([])
   const [activeSizes, setActiveSizes] = useState([])
   const [filtersOpen, setFiltersOpen] = useState(false)
   const [currentPage, setCurrentPage] = useState(1)
 
   function toggleCategory(cat) {
     setActiveCategories((prev) => prev.includes(cat) ? prev.filter((c) => c !== cat) : [...prev, cat])
-  }
-  function toggleMaterial(mat) {
-    setActiveMaterials((prev) => prev.includes(mat) ? prev.filter((m) => m !== mat) : [...prev, mat])
+    setCurrentPage(1)
   }
   function toggleSize(size) {
     setActiveSizes((prev) => prev.includes(size) ? prev.filter((s) => s !== size) : [...prev, size])
+    setCurrentPage(1)
   }
 
-  const activeFilterCount = activeCategories.length + activeMaterials.length + activeSizes.length
-  const totalPages = Math.max(1, Math.ceil(products.length / PAGE_SIZE))
-  const paginated = products.slice((currentPage - 1) * PAGE_SIZE, currentPage * PAGE_SIZE)
+  const CATEGORY_KEYWORDS = { Oxford: 'Oxford', Loafers: 'Loafer', Boots: 'Boot' }
+
+  const filtered = products.filter((p) => {
+    const categoryMatch = activeCategories.length === 0
+      || activeCategories.some((cat) => p.name.toLowerCase().includes(CATEGORY_KEYWORDS[cat].toLowerCase()))
+    const sizeMatch = activeSizes.length === 0
+      || activeSizes.some((s) => p.sizes.includes(s))
+    return categoryMatch && sizeMatch
+  })
+
+  const activeFilterCount = activeCategories.length + activeSizes.length
+  const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE))
+  const paginated = filtered.slice((currentPage - 1) * PAGE_SIZE, currentPage * PAGE_SIZE)
 
   return (
     <div className="bg-[#f9f9f9] text-[#1a1c1c] min-h-screen font-['Hanken_Grotesk']">
@@ -55,7 +62,7 @@ export default function CollectionsPage() {
             <div>
               <h1 className="font-['Bodoni_Moda'] text-4xl text-[#1a1c1c]">Shop All</h1>
               <p className="font-['Hanken_Grotesk'] text-xs font-medium uppercase tracking-[0.1em] text-[#7e7576] mt-1">
-                {loading ? '' : `${products.length} items`}
+                {loading ? '' : `${filtered.length} items`}
               </p>
             </div>
             <div className="flex gap-6 mt-4 md:mt-0">
@@ -98,24 +105,6 @@ export default function CollectionsPage() {
               </div>
 
               <div>
-                <span className="font-['Hanken_Grotesk'] text-xs font-semibold uppercase tracking-[0.15em] text-[#7e7576] mb-3 block">Material</span>
-                <div className="flex gap-2">
-                  {MATERIALS.map((mat) => {
-                    const active = activeMaterials.includes(mat)
-                    return (
-                      <button
-                        key={mat}
-                        onClick={() => toggleMaterial(mat)}
-                        className={`px-3 py-1.5 border font-['Hanken_Grotesk'] text-xs font-semibold uppercase tracking-[0.1em] transition-colors ${active ? 'border-[#1a1c1c] bg-[#1a1c1c] text-white' : 'border-[#e2e2e2] text-[#1a1c1c] hover:border-[#1a1c1c]'}`}
-                      >
-                        {mat}
-                      </button>
-                    )
-                  })}
-                </div>
-              </div>
-
-              <div>
                 <span className="font-['Hanken_Grotesk'] text-xs font-semibold uppercase tracking-[0.15em] text-[#7e7576] mb-3 block">Size</span>
                 <div className="flex gap-2">
                   {SIZES.map((size) => {
@@ -136,7 +125,7 @@ export default function CollectionsPage() {
               {activeFilterCount > 0 && (
                 <div className="flex items-end">
                   <button
-                    onClick={() => { setActiveCategories([]); setActiveMaterials([]); setActiveSizes([]) }}
+                    onClick={() => { setActiveCategories([]); setActiveSizes([]); setCurrentPage(1) }}
                     className="font-['Hanken_Grotesk'] text-xs font-medium uppercase tracking-[0.1em] text-[#7e7576] underline hover:text-[#1a1c1c] transition-colors"
                   >
                     Clear All
