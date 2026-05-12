@@ -7,7 +7,7 @@ export default function HomePage() {
       <img
         src="/hero-cobbler.png"
         alt=""
-        className="absolute inset-0 w-full h-full object-cover object-top"
+        className="absolute inset-0 w-full h-full object-contain bg-[#e8ddd0]"
       />
       <Link
         to="/collections"
