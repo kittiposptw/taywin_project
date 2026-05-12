@@ -7,7 +7,7 @@ const SIDEBAR_LINKS = [
   { label: 'Heritage', to: '/heritage' },
 ]
 
-export default function NavBar() {
+export default function NavBar({ transparent = false }) {
   const [open, setOpen] = useState(false)
   const { totalItems, openCart } = useCart()
 
@@ -42,17 +42,17 @@ export default function NavBar() {
       </aside>
 
       {/* Top nav bar */}
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-[#f9f9f9] border-b border-[#e2e2e2] flex justify-between items-center px-8 md:px-12 py-4">
-        <button onClick={() => setOpen(true)} className="flex items-center gap-2 hover:opacity-60 transition-opacity">
+      <nav className={`fixed top-0 left-0 right-0 z-50 flex justify-between items-center px-8 md:px-12 py-4 transition-colors ${transparent ? 'bg-transparent border-transparent' : 'bg-[#f9f9f9] border-b border-[#e2e2e2]'}`}>
+        <button onClick={() => setOpen(true)} className={`flex items-center gap-2 hover:opacity-60 transition-opacity ${transparent ? 'text-white' : 'text-[#1a1c1c]'}`}>
           <span className="material-symbols-outlined" style={{ fontSize: 22 }}>menu</span>
           <span className="font-['Hanken_Grotesk'] text-xs font-semibold tracking-[0.2em] uppercase hidden md:block">Menu</span>
         </button>
 
         <Link to="/" className="absolute left-1/2 -translate-x-1/2">
-          <span className="font-['Bodoni_Moda'] text-xl tracking-[0.25em] text-[#1a1c1c]">TAYWIN</span>
+          <span className={`font-['Bodoni_Moda'] text-xl tracking-[0.25em] ${transparent ? 'text-white' : 'text-[#1a1c1c]'}`}>TAYWIN</span>
         </Link>
 
-        <div className="flex items-center gap-5">
+        <div className={`flex items-center gap-5 ${transparent ? 'text-white' : 'text-[#1a1c1c]'}`}>
           <button className="hover:opacity-60 transition-opacity hidden md:block">
             <span className="material-symbols-outlined" style={{ fontSize: 22 }}>search</span>
           </button>
