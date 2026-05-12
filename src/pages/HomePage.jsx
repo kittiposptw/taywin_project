@@ -1,14 +1,13 @@
 import { Link } from 'react-router-dom'
 import NavBar from '../components/NavBar'
-import { IMAGES } from '../config/images'
 
 export default function HomePage() {
   return (
     <div className="relative h-screen w-screen overflow-hidden">
       <img
-        src={IMAGES.hero}
+        src="/hero-cobbler.png"
         alt=""
-        className="absolute inset-0 w-full h-full object-cover"
+        className="absolute inset-0 w-full h-full object-cover object-top"
       />
       <Link
         to="/collections"
